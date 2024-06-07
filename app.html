@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Interface d'application</title>
+    <style>
+        body {
+            background-image: url('agt.jpeg');
+            background-repeat: repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #424558;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
+        nav a:hover {
+            border-top: 5px solid #fff;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: rgb(0, 0, 10);
+            padding: 50px 0;
+        }
+
+        p {
+            font-size: 15px;
+            color: #00708B;
+        }
+
+        #user-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px auto;
+            gap: 20px;
+        }
+
+        .user {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            flex: 1 0 200px;
+            max-width: 250px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .user:hover {
+            transform: translateY(-10px);
+        }
+
+        .user h3 {
+            margin-bottom: 10px;
+        }
+
+        .user p {
+            font-size: 14px;
+        }
+
+        #supervisor-user::before, #agent-user::before {
+            display: block;
+            margin-bottom: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        #supervisor-user::before {
+            content: url('respo.png');
+        }
+
+        #agent-user::before {
+            content: url('agt.png');
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="menu-acc">
+                    <a href="#">Accueil</a>
+                </li>
+                <li class="menu-ser">
+                    <a href="#">Services</a>
+                </li>
+                <li class="menu-about">
+                    <a href="#">À Propos</a>
+                </li>
+                <li class="menu-con">
+                    <a href="#">Contactez-nous</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h2>Gestion des Agents d'entretien</h2>
+    <div id="user-selection">
+        <div class="user" id="supervisor-user">
+            <h3>Responsable</h3>
+            <p>Gérer les tâches, les horaires et performances.</p>
+        </div>
+        <div class="user" id="agent-user">
+            <h3>Agent</h3>
+            <p>Voir les tâches, l'équipement et l'horaire attribués.</p>
+        </div>
+    </div>
+
+    <script>
+        const supervisorUser = document.getElementById('supervisor-user');
+        const agentUser = document.getElementById('agent-user');
+        
+        supervisorUser.addEventListener('click', () => {
+            window.location.href = 'form.html';
+        });
+        
+        agentUser.addEventListener('click', () => {
+            window.location.href = 'agentins.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Page de l'agent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    #taskList, #workSchedule, #messages {
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+    }
+
+    #messageInput {
+      width: calc(100% - 80px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      #messageInput {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mes tâches</h1>
+    <div class="container">
+        <div id="taskList"></div>
+    
+    <h1>Mon horaire de travail</h1>
+    <div id="workSchedule"></div>
+    
+    <h1>Messagerie</h1>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Tapez un message..." />
+    <button onclick="sendMessage()">Envoyer</button>
+    
+    <h1>Soumettre un rapport</h1>
+    <form id="reportForm">
+      <label for="report">Rapport :</label>
+      <textarea id="report" required></textarea>
+      <button type="submit">Soumettre</button>
+    </form>
+  </div>
+
+  <script>
+    window.onload = function() {
+      // Récupérer les tâches et les horaires de travail de l'agent à partir du localStorage
+      
+      var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      var workSchedule = JSON.parse(localStorage.getItem('workSchedule')) || [];
+
+    //  Afficher les tâches et les horaires de travail de l'agent
+      document.getElementById('taskList').innerHTML = tasks.join(', ');
+      //document.getElementById('workSchedule').innerHTML = workSchedule.join(', ');
+
+      // Afficher les messages existants
+      var messages = JSON.parse(localStorage.getItem('messages')) || [];
+      document.getElementById('messages').innerHTML = messages.join('<br/>');
+      
+   }
+
+    function sendMessage() {
+      var messageInput = document.getElementById('messageInput');
+      var message = messageInput.value;
+
+      if (message.trim() === '') {
+        alert('Veuillez entrer un message.');
+        return;
+      }
+
+      var messages = JSON.parse(localStorage.getItem('messages')) || [];
+      messages.push(message);
+      localStorage.setItem('messages', JSON.stringify(messages));
+
+      // Mettre à jour l'affichage des messages
+      document.getElementById('messages').innerHTML = messages.join('<br/>');
+      messageInput.value = '';
+    }
+
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let report = document.getElementById('report').value;
+
+      let reports = JSON.parse(localStorage.getItem('reports')) || [];
+
+      reports.push({
+        agent: 'Agent 1', // Vous devrez modifier cette ligne pour obtenir le nom de l'agent actuellement connecté
+        report: report
+      });
+
+      localStorage.setItem('reports', JSON.stringify(reports));
+      alert('Rapport soumis avec succès!');
+      document.getElementById('reportForm').reset();
+    });
+  </script>
+</body>
+</html>
